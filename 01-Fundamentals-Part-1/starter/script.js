@@ -99,17 +99,17 @@ console.log(5 + 6 + '4' + 9 - 4 - 2); // -> ?
 
 // Reflect on why we should use the === operator and type conversion in this situation.
 
-const numNeighbours = Number(
-	prompt('How many neighbour countries does your country have?')
-);
+// const numNeighbours = Number(
+// 	prompt('How many neighbour countries does your country have?')
+// );
 
-if (numNeighbours === 1) {
-	console.log('Only 1 border!');
-} else if (numNeighbours > 1) {
-	console.log('More than 1 border');
-} else {
-	console.log('No borders');
-}
+// if (numNeighbours === 1) {
+// 	console.log('Only 1 border!');
+// } else if (numNeighbours > 1) {
+// 	console.log('More than 1 border');
+// } else {
+// 	console.log('No borders');
+// }
 
 // 9 - Logical Operators﻿
 // Comment out the previous code so the prompt doesn't get in the way.
@@ -170,3 +170,4 @@ switch (language) {
 let position = population > 33000000 ? "above" : "below";
 console.log(`${country}'s population is ${position} average`)
 // After checking the result, change the population temporarily to 13 and then to 130. See the different results, and set the population back to original.
+
