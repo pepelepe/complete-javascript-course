@@ -502,3 +502,58 @@ console.log(
     author: ['Robert Sedgewick', 'Kevin Wayne'],
   })
 );
+
+//For Of loop in Array
+
+//const menu2 = [...restaurant.starterMenu, ...restaurant.mainMenu];
+for (const item of menu2) console.log(item);
+
+for (const [i, food] of menu2.entries()) console.log(`${[i + 1]}: ${food}`);
+
+//Optional chaining
+
+console.log(restaurant.openingHours.mon); //undefined
+console.log(restaurant.openingHours?.mon?.open); //WITH optional chaining to avoid errors
+
+// Optional chaining example:
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+for (const day of days) {
+  const open = restaurant.openingHours[day]?.open ?? 'closed';
+  console.log(`On ${day}, we open at ${open}`);
+}
+
+// Optional chaining on Methods
+console.log(restaurant.order?.(0, 1) ?? "Method doesn't exist");
+console.log(restaurant.orderRissoto?.(0, 1) ?? "Method doesn't exist");
+
+// Optional chaining on Arrays
+const users = [
+  {
+    name: 'Jonas',
+    email: 'hello@jonas.io',
+  },
+];
+console.log(users[0]?.name ?? 'User array empty');
+
+//For Of loop in Object
+// Properties NAMES
+const properties = Object.keys(openingHours);
+//console.log(properties);
+let openStr = `We are open on ${properties.length} days: `;
+for (const day of properties) {
+  openStr += `${day}, `;
+}
+console.log(openStr);
+
+// Properties VALUES
+const values = Object.values(openingHours);
+console.log(values);
+
+// Properties VALUESEntire Object
+const entries = Object.entries(openingHours);
+console.log(entries);
+
+for (const [key, { open, close }] of entries) {
+  console.log(`On ${key} we open at ${open} and close at ${close}`);
+}
