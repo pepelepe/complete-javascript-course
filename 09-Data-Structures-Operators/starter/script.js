@@ -4,6 +4,21 @@
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
+const getCode = str => str.slice(0, 3).toUpperCase();
+// const getCode = function (str) {
+//   return str.slice(0, 3).toUpperCase();
+// };
+
+for (const flight of flights.split('+')) {
+  const [type, from, to, time] = flight.split(';');
+  const output = `${type.startsWith('_Delayed') ? '🔴' : ''} ${type.replaceAll(
+    '_',
+    ' '
+  )} ${getCode(from)} ${getCode(to)} (${time.replace(':', 'h')})`.padStart(37);
+
+  console.log(output);
+}
+
 // Data needed for first part of the section
 const restaurant = {
   name: 'Classico Italiano',
@@ -557,3 +572,154 @@ console.log(entries);
 for (const [key, { open, close }] of entries) {
   console.log(`On ${key} we open at ${open} and close at ${close}`);
 }
+
+//SETS
+const orderSet = new Set([
+  'Pasta',
+  'Rissotto',
+  'Gnoqui',
+  'Cannelloni',
+  'Pasta',
+  'Gnoqui',
+]);
+console.log(orderSet);
+console.log(orderSet.size);
+console.log(new Set('Jonnas'));
+console.log(orderSet.has('Pasta'));
+console.log(orderSet.has('Bread'));
+orderSet.add('Garlic Bread');
+orderSet.add('Garlic Bread');
+orderSet.delete('Rissotto');
+//orderSet.clear();
+console.log(orderSet);
+
+for (const order of orderSet) console.log(order);
+
+//Example
+const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
+const uniqueStaff = [...new Set(staff)]; // Use of [...] to convert Set to Array
+console.log(staff);
+console.log(uniqueStaff);
+
+//MAP
+
+const rest = new Map();
+rest.set('name', 'Classico Italiano'); // set creates the map
+rest.set(1, 'Firenze, Italy');
+console.log(rest.set(2, 'Lisbone, Portugal')); // set also returns the whole map
+
+rest
+  .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+  .set('open', 11)
+  .set('close', 23)
+  .set(true, 'We are open :)')
+  .set(false, 'We are closed :(');
+
+console.log(rest.get('name')); // get method allows to read data
+console.log(rest.get(true));
+
+const time = 21;
+console.log(`Actual time is: ${time}h
+and the restaurant status is: ${rest.get(
+  time > rest.get('open') && time < rest.get('close')
+)}`);
+
+console.log(rest.has('categories'));
+rest.delete(2); // delete location in lisbone
+//rest.clear(); // empty map
+console.log(rest);
+console.log(rest.size);
+
+const question = new Map([
+  ['question', 'What is the best programming languaje in the world?'],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, 'Java Script'],
+  ['Correct', 3],
+  [true, 'Correct :)'],
+  [false, 'Try again!'],
+]);
+
+console.log(question);
+
+// Convert object to map
+console.log(Object.entries(openingHours));
+const hoursMap = new Map(Object.entries(openingHours));
+console.log(hoursMap);
+
+//Quiz app
+console.log(question.get('question'));
+for (const [key, value] of question) {
+  if (typeof key === 'number') {
+    console.log(`Answer: ${key}: ${value}`);
+  }
+}
+//const answer = Number(prompt('Chose you answer'));
+const answer = 3;
+console.log('Answer is: ' + answer);
+
+console.log(question.get(answer));
+if (answer === 3) {
+  console.log(question.get(true));
+} else {
+  console.log(question.get(false));
+}
+answer === 3
+  ? console.log(question.get(true))
+  : console.log(question.get(false));
+
+// Good solution using map
+console.log(question.get(question.get('Correct') === answer)); // because "question.get('Correct') === answer)" is true or false boolean value.
+
+console.log(question);
+// convert Map to Array
+console.log(...question);
+console.log(...question.keys());
+console.log(...question.values());
+
+//string split and join
+console.log('a+very+nice+string'.split('+')); // convert to array
+console.log('Jonas Schmedtmann'.split(' '));
+
+const [firstName, lastName] = 'Jonas Schmedtmann'.split(' '); // convert to array
+
+const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' '); // convert to string
+console.log(newName);
+
+const capitalizeName = function (name) {
+  const names = name.split(' '); //convert string to array
+  const namesUpper = [];
+
+  for (const n of names) {
+    namesUpper.push(n[0].toUpperCase() + n.slice(1)); //Capitalize first letter and add the rest of string, then push to the end of array
+
+    // namesUpper.push(n.replace(n[0], n[0].toUpperCase)); // other way with replace()
+  }
+  console.log(namesUpper.join(' ')); // convert Array to string & print
+};
+capitalizeName('jessica ann smith davis');
+capitalizeName('jonas schmedtmann');
+
+// Padding
+const message = 'Go to gate 23!';
+console.log(message.padStart(20, '+').padEnd(30, '+'));
+console.log('Jonas'.padStart(20, '+').padEnd(30, '+'));
+
+const maskCreditCard = function (number) {
+  const str = number + ''; // convert to string
+  const last = str.slice(-4); // take the last 4 characters of string
+  return last.padStart(str.length, '*'); // return the the last(4 digits) plus fulfilled with lenght of number with *.
+};
+
+console.log(maskCreditCard(43378463864647384));
+console.log(maskCreditCard('334859493847755774747'));
+
+// Repeat
+const message2 = 'Bad weather... All Departures Delayed...';
+console.log(message2.repeat(5));
+
+const planesInLine = function (n) {
+  console.log(`There are ${n} planes in line ${'✈️'.repeat(n)}`);
+};
+planesInLine(5);
+planesInLine(3);
