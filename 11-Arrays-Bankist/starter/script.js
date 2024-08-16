@@ -630,3 +630,82 @@ const dogs = [
 
 GOOD LUCK 😀
 */
+///////////////////////////1.
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+
+const createRecommendedFoodPortion = function (animals) {
+  animals.forEach(function (dog) {
+    const recommendedFood = Math.trunc(dog.weight ** 0.75 * 28);
+    dog.recFood = recommendedFood; // 1000;
+  });
+};
+createRecommendedFoodPortion(dogs);
+///////////////////////////2.
+console.log(dogs);
+const checkDogFood = function (dogOwner) {
+  const dog = dogs.find(dog => dog.owners.includes(dogOwner));
+
+  if (!dog) {
+    console.log(`Owner dog is not registered!`);
+    return;
+  }
+  const recommendedFood = dog.weight ** 0.75 * 28;
+
+  if (dog.curFood > dog.recFood) {
+    console.log(`${dogOwner}'s dog is eating too much food`);
+  } else if (dog.curFood < dog.recFood) {
+    console.log(`${dogOwner}'s dog is not eating enough food`);
+  } else {
+    console.log(`${dogOwner}'s dog is eating mormaly amount of food`);
+  }
+};
+checkDogFood('Sarah');
+///////////////////////////3.
+const ownersEatTooMuch = [];
+const ownersEatTooLittle = [];
+
+const listOwners = dogs.forEach(dog => {
+  const recommendedFood = dog.weight ** 0.75 * 28;
+  if (dog.curFood > recommendedFood * 1.1) {
+    ownersEatTooMuch.push(...dog.owners);
+  } else if (dog.curFood < recommendedFood * 0.9) {
+    ownersEatTooLittle.push(...dog.owners);
+  }
+});
+console.log(`All owners of dogs who eat too much ${ownersEatTooMuch}`);
+console.log(`All owners of dogs who eat too little ${ownersEatTooLittle}`);
+//Solution don by Johnas
+// const ownersEatTooMuch = dogs
+//   .filter(dog => dog.curFood > dog.recFood)
+//   .flatMap(dog => dog.owners);
+// console.log(ownersEatTooMuch);
+// const ownersEatTooLittle = dogs
+//   .filter(dog => dog.curFood < dog.recFood)
+//   .flatMap(dog => dog.owners);
+// console.log(ownersEatTooLittle);
+///////////////////////////4.
+console.log(ownersEatTooMuch);
+console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much!`);
+console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too much!`);
+///////////////////////////5.
+const isAnyDogEatingExactly = dogs.some(dog => {
+  return dog.curFood === dog.recFood;
+});
+console.log(isAnyDogEatingExactly); // true or false
+///////////////////////////6.
+const isAnyDogEatingOkay = dog =>
+  dog.curFood >= dog.recFood * 0.9 && dog.curFood < dog.recFood * 1.1;
+console.log(dogs.some(isAnyDogEatingOkay)); // true or false
+///////////////////////////7.
+console.log(dogs.filter(isAnyDogEatingOkay));
+console.log(dogs.filter(isAnyDogEatingOkay).flatMap(dog => dog.owners));
+///////////////////////////8.
+const dogsCopy = dogs.slice(); //create shallow copy
+console.log(dogsCopy);
+const dogsSorted = dogs.slice().sort((a, b) => a.recFood - b.recFood); //Sort array
+console.log(dogsSorted);
